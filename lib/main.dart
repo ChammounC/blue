@@ -929,7 +929,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
                                                                                                             number: "",
                                                                                                             subject: 'WE-Finder New User Feedback',
                                                                                                           );
-                                                                                                          setState(() {
+                                                                                                          setState((){
                                                                                                             prefs.setString('feedback', 'done');
                                                                                                             feedbackDone = true;
                                                                                                           });
