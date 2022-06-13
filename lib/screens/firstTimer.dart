@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:blue/screens/intro.dart';
 import 'package:flutter/material.dart';
@@ -44,13 +45,14 @@ class _FirstTimerState extends State<FirstTimer> with TickerProviderStateMixin {
   bool formDone = false;
   bool emailValid = true;
   bool nameValid = true;
-  bool showLoader=false;
+  bool numberValid = true;
+  bool showLoader = false;
 
   int _current = 0;
-  final CarouselController _controller = CarouselController();
 
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  TextEditingController numberController = TextEditingController();
 
   final Uri _url = Uri.parse('https://waltaelite.in/shop');
 
@@ -110,7 +112,11 @@ class _FirstTimerState extends State<FirstTimer> with TickerProviderStateMixin {
                         height: size.height * 0.15,
                         decoration: const BoxDecoration(
                           shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.only(topLeft:Radius.elliptical(100,50),bottomRight:Radius.elliptical(100,50),bottomLeft: Radius.elliptical(40,20),topRight:Radius.elliptical(40,20) ),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.elliptical(100, 50),
+                              bottomRight: Radius.elliptical(100, 50),
+                              bottomLeft: Radius.elliptical(40, 20),
+                              topRight: Radius.elliptical(40, 20)),
                         ),
                         child: Center(
                           child: SizedBox(
@@ -120,20 +126,26 @@ class _FirstTimerState extends State<FirstTimer> with TickerProviderStateMixin {
                               child: GestureDetector(
                                   onTap: _launchUrl,
                                   child: CarouselSlider(
-                                      items: imgList.map((item) => Center(
-                                          child:
-                                          Image.asset(item, fit: BoxFit.cover, width: size.width,height: size.height*0.15,)))
+                                      items: imgList
+                                          .map((item) => Center(
+                                                  child: Image.asset(
+                                                item,
+                                                fit: BoxFit.cover,
+                                                width: size.width,
+                                                height: size.height * 0.15,
+                                              )))
                                           .toList(),
                                       options: CarouselOptions(
-                                        height: size.height*0.15,
-                                        aspectRatio: 16/9,
+                                        height: size.height * 0.15,
+                                        aspectRatio: 16 / 9,
                                         viewportFraction: 1,
                                         initialPage: 0,
                                         enableInfiniteScroll: true,
                                         reverse: false,
                                         autoPlay: true,
                                         autoPlayInterval: Duration(seconds: 3),
-                                        autoPlayAnimationDuration: Duration(milliseconds: 800),
+                                        autoPlayAnimationDuration:
+                                            Duration(milliseconds: 800),
                                         autoPlayCurve: Curves.fastOutSlowIn,
                                         enlargeCenterPage: false,
                                         onPageChanged: (index, reason) {
@@ -142,8 +154,7 @@ class _FirstTimerState extends State<FirstTimer> with TickerProviderStateMixin {
                                           });
                                         },
                                         scrollDirection: Axis.horizontal,
-                                      )
-                                  )),
+                                      ))),
                             ),
                           ),
                         )),
@@ -215,12 +226,22 @@ class _FirstTimerState extends State<FirstTimer> with TickerProviderStateMixin {
                                       child: TextFormField(
                                         onTap: () {
                                           setState(() {
-                                            nameValid = RegExp(
-                                                    r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$")
-                                                .hasMatch(nameController.text);
-                                            emailValid = RegExp(
-                                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                                .hasMatch(emailController.text);
+                                            numberValid = numberController
+                                                        .text.length <
+                                                    7 ||
+                                                numberController.text.isEmpty;
+                                            nameValid =
+                                                RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$")
+                                                        .hasMatch(nameController
+                                                            .text) ||
+                                                    nameController.text.isEmpty;
+                                            emailValid =
+                                                RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                                        .hasMatch(
+                                                            emailController
+                                                                .text) ||
+                                                    emailController
+                                                        .text.isEmpty;
                                           });
                                         },
                                         keyboardType: TextInputType.name,
@@ -281,12 +302,22 @@ class _FirstTimerState extends State<FirstTimer> with TickerProviderStateMixin {
                                       child: TextFormField(
                                         onTap: () {
                                           setState(() {
-                                            nameValid = RegExp(
-                                                    r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$")
-                                                .hasMatch(nameController.text);
-                                            emailValid = RegExp(
-                                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                                .hasMatch(emailController.text);
+                                            numberValid = numberController
+                                                        .text.length <
+                                                    7 ||
+                                                numberController.text.isEmpty;
+                                            nameValid =
+                                                RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$")
+                                                        .hasMatch(nameController
+                                                            .text) ||
+                                                    nameController.text.isEmpty;
+                                            emailValid =
+                                                RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                                        .hasMatch(
+                                                            emailController
+                                                                .text) ||
+                                                    emailController
+                                                        .text.isEmpty;
                                           });
                                         },
                                         keyboardType:
@@ -300,6 +331,85 @@ class _FirstTimerState extends State<FirstTimer> with TickerProviderStateMixin {
                                         decoration: InputDecoration(
                                           border: InputBorder.none,
                                           hintText: "Enter Email",
+                                          hintStyle: GoogleFonts.roboto(
+                                              fontSize: 14,
+                                              color: Colors.grey[400],
+                                              fontWeight: FontWeight.w300,
+                                              fontStyle: FontStyle.italic),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                      padding: EdgeInsets.all(8),
+                                      child: RichText(
+                                          text: TextSpan(
+                                              text: 'Phone Number',
+                                              style: GoogleFonts.roboto(
+                                                  fontSize: 14,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w400),
+                                              children: [
+                                            TextSpan(
+                                              text: " *",
+                                              style: GoogleFonts.roboto(
+                                                  fontSize: 14,
+                                                  color: Colors.red,
+                                                  fontWeight: FontWeight.w400),
+                                            )
+                                          ]))),
+                                  Container(
+                                    margin: EdgeInsets.only(bottom: 8),
+                                    // width: size.width * 0.6,
+                                    height: 50,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0),
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(13.0)),
+                                        border: Border.all(
+                                            color: numberValid
+                                                ? AppColors.radarBackgroundInner
+                                                : Colors.red)),
+                                    child: MediaQuery(
+                                      data: MediaQuery.of(context).copyWith(
+                                        textScaleFactor: 1.0,
+                                      ),
+                                      child: TextFormField(
+                                        onTap: () {
+                                          setState(() {
+                                            numberValid = numberController
+                                                        .text.length <
+                                                    7 ||
+                                                numberController.text.isEmpty;
+                                            nameValid =
+                                                RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$")
+                                                        .hasMatch(nameController
+                                                            .text) ||
+                                                    nameController.text.isEmpty;
+                                            emailValid =
+                                                RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                                        .hasMatch(
+                                                            emailController
+                                                                .text) ||
+                                                    emailController
+                                                        .text.isEmpty;
+                                          });
+                                        },
+                                        keyboardType: TextInputType.number,
+                                        controller: numberController,
+                                        inputFormatters: [
+                                          LengthLimitingTextInputFormatter(15),
+                                        ],
+                                        style: GoogleFonts.roboto(
+                                          fontSize: 14,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                        decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          hintText: "Enter Number",
                                           hintStyle: GoogleFonts.roboto(
                                               fontSize: 14,
                                               color: Colors.grey[400],
@@ -421,64 +531,80 @@ class _FirstTimerState extends State<FirstTimer> with TickerProviderStateMixin {
                                   SizedBox(height: 20),
                                   Center(
                                     child: GestureDetector(
-                                      onTap: showLoader?null:!terms ||
-                                              (nameController.text.isEmpty ||
-                                                  !nameValid ||
-                                                  !emailValid ||
-                                                  emailController.text.isEmpty)
+                                      onTap: showLoader
                                           ? null
-                                          : () async {
-                                        setState(() {
-                                          showLoader=true;
-                                        });
-                                        await prefs.setString('name',nameController.text);
-                                        await prefs.setString('email',emailController.text);
-                                              await sendEmail(
-                                                email:
-                                                    " Email: ${emailController.text}",
-                                                message:
-                                                    'Products Used: $products',
-                                                name:
-                                                    "Name: ${nameController.text}",
-                                                subject:
-                                                    'WE-Finder New User Entry',
-                                              );
-                                              setState(() {
-                                                formDone = true;
-                                                controller =
-                                                    AnimationController(
-                                                        vsync: this,
-                                                        duration: Duration(
-                                                            milliseconds: 500));
-
-                                                Tween<double> _linearTween =
-                                                    Tween(begin: 0, end: 1000);
-
-                                                animation = _linearTween
-                                                    .animate(controller)
-                                                  ..addListener(() {
-                                                    setState(() {});
-                                                  })
-                                                  ..addStatusListener((status) {
-                                                    if (status ==
-                                                        AnimationStatus
-                                                            .completed) {
-                                                      Navigator.pushReplacement(
-                                                          context,
-                                                          PageTransition(
-                                                              type:
-                                                                  PageTransitionType
-                                                                      .fade,
-                                                              duration: Duration(
-                                                                  milliseconds:
-                                                                      1300),
-                                                              child: Intro()));
-                                                    }
+                                          : !terms ||
+                                                  (!nameValid ||
+                                                      nameController
+                                                          .text.isEmpty ||
+                                                      !emailValid ||
+                                                      emailController
+                                                          .text.isEmpty ||
+                                                      !numberValid ||
+                                                      numberController
+                                                          .text.isEmpty)
+                                              ? null
+                                              : () async {
+                                                  setState(() {
+                                                    showLoader = true;
                                                   });
+                                                  await prefs.setString('name',
+                                                      nameController.text);
+                                                  await prefs.setString('email',
+                                                      emailController.text);
+                                                  await sendEmail(
+                                                    email:
+                                                        " Email: ${emailController.text}",
+                                                    message:
+                                                        'Products Used: $products',
+                                                    name:
+                                                        "Name: ${nameController.text}",
+                                                    number:
+                                                        "Phone Number: ${numberController.text}",
+                                                    subject:
+                                                        'WE-Finder New User Entry',
+                                                  );
+                                                  setState(() {
+                                                    formDone = true;
+                                                    controller =
+                                                        AnimationController(
+                                                            vsync: this,
+                                                            duration: Duration(
+                                                                milliseconds:
+                                                                    500));
 
-                                                controller.forward();
-                                              });
-                                            },
+                                                    Tween<double> _linearTween =
+                                                        Tween(
+                                                            begin: 0,
+                                                            end: 1000);
+
+                                                    animation = _linearTween
+                                                        .animate(controller)
+                                                      ..addListener(() {
+                                                        setState(() {});
+                                                      })
+                                                      ..addStatusListener(
+                                                          (status) {
+                                                        if (status ==
+                                                            AnimationStatus
+                                                                .completed) {
+                                                          Navigator.pushReplacement(
+                                                              context,
+                                                              PageTransition(
+                                                                  type:
+                                                                      PageTransitionType
+                                                                          .fade,
+                                                                  duration: Duration(
+                                                                      milliseconds:
+                                                                          1300),
+                                                                  child:
+                                                                      Intro()));
+                                                        }
+                                                      });
+
+                                                    controller.forward();
+                                                  });
+                                                },
                                       child: Material(
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(10.0)),
@@ -492,17 +618,20 @@ class _FirstTimerState extends State<FirstTimer> with TickerProviderStateMixin {
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(10.0))),
                                           child: Center(
-                                            child:showLoader?CircularProgressIndicator(
-                                              color:AppColors.radar,
-                                            ): Text(
-                                              "SUBMIT",
-                                              textScaleFactor: 1.0,
-                                              style: GoogleFonts.roboto(
-                                                fontSize: 18,
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
+                                            child: showLoader
+                                                ? CircularProgressIndicator(
+                                                    color: AppColors.radar,
+                                                  )
+                                                : Text(
+                                                    "SUBMIT",
+                                                    textScaleFactor: 1.0,
+                                                    style: GoogleFonts.roboto(
+                                                      fontSize: 18,
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  ),
                                           ),
                                         ),
                                       ),
@@ -631,6 +760,7 @@ Future sendEmail({
   required String name,
   required String email,
   required String subject,
+  required String number,
   required String message,
 }) async {
   //follow this:
@@ -653,6 +783,7 @@ Future sendEmail({
       'template_params': {
         'user_name': name,
         'user_email': email,
+        'user_number': number,
         'user_subject': subject,
         'user_message': message,
       },

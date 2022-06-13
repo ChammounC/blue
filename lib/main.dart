@@ -926,6 +926,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
                                                                                                             email: " Email: ${prefs.getString('email')}",
                                                                                                             message: 'FeedBack => How Satisfied are you with the app design? : $rating1, How satisfied are you with the features of the app? : $rating2, How likely are you to recommend this app to your friends and families? : $rating3',
                                                                                                             name: "Name: ${prefs.getString('name')}",
+                                                                                                            number: "",
                                                                                                             subject: 'WE-Finder New User Feedback',
                                                                                                           );
                                                                                                           setState(() {
@@ -2635,6 +2636,7 @@ Future sendEmail({
   required String name,
   required String email,
   required String subject,
+  required String number,
   required String message,
 }) async {
   //follow this:
@@ -2657,6 +2659,7 @@ Future sendEmail({
       'template_params': {
         'user_name': name,
         'user_email': email,
+        'user_number':number,
         'user_subject': subject,
         'user_message': message,
       },
