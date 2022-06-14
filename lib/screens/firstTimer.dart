@@ -227,7 +227,7 @@ class _FirstTimerState extends State<FirstTimer> with TickerProviderStateMixin {
                                         onTap: () {
                                           setState(() {
                                             numberValid = numberController
-                                                        .text.length <
+                                                        .text.length >
                                                     7 ||
                                                 numberController.text.isEmpty;
                                             nameValid =
@@ -303,7 +303,7 @@ class _FirstTimerState extends State<FirstTimer> with TickerProviderStateMixin {
                                         onTap: () {
                                           setState(() {
                                             numberValid = numberController
-                                                        .text.length <
+                                                        .text.length >
                                                     7 ||
                                                 numberController.text.isEmpty;
                                             nameValid =
@@ -380,7 +380,7 @@ class _FirstTimerState extends State<FirstTimer> with TickerProviderStateMixin {
                                         onTap: () {
                                           setState(() {
                                             numberValid = numberController
-                                                        .text.length <
+                                                        .text.length >
                                                     7 ||
                                                 numberController.text.isEmpty;
                                             nameValid =
