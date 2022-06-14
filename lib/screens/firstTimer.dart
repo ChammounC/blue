@@ -85,11 +85,15 @@ class _FirstTimerState extends State<FirstTimer> with TickerProviderStateMixin {
       onTap: () {
         setState(() {
           nameValid =
-              RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$")
-                  .hasMatch(nameController.text);
+              nameController.text.length >2 ||
+                  nameController.text.isEmpty;
           emailValid = RegExp(
                   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-              .hasMatch(emailController.text);
+              .hasMatch(emailController.text) || emailController.text.isEmpty;
+          numberValid = numberController
+              .text.length >
+              7 ||
+              numberController.text.isEmpty;
         });
         FocusScopeNode currentFocus = FocusScope.of(context);
         if (!currentFocus.hasPrimaryFocus) {
@@ -231,9 +235,7 @@ class _FirstTimerState extends State<FirstTimer> with TickerProviderStateMixin {
                                                     7 ||
                                                 numberController.text.isEmpty;
                                             nameValid =
-                                                RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$")
-                                                        .hasMatch(nameController
-                                                            .text) ||
+                                                nameController.text.length >2 ||
                                                     nameController.text.isEmpty;
                                             emailValid =
                                                 RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
@@ -307,9 +309,7 @@ class _FirstTimerState extends State<FirstTimer> with TickerProviderStateMixin {
                                                     7 ||
                                                 numberController.text.isEmpty;
                                             nameValid =
-                                                RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$")
-                                                        .hasMatch(nameController
-                                                            .text) ||
+                                                nameController.text.length >2 ||
                                                     nameController.text.isEmpty;
                                             emailValid =
                                                 RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
@@ -380,19 +380,17 @@ class _FirstTimerState extends State<FirstTimer> with TickerProviderStateMixin {
                                         onTap: () {
                                           setState(() {
                                             numberValid = numberController
-                                                        .text.length >
-                                                    7 ||
+                                                .text.length >
+                                                7 ||
                                                 numberController.text.isEmpty;
                                             nameValid =
-                                                RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$")
-                                                        .hasMatch(nameController
-                                                            .text) ||
+                                                nameController.text.length >2 ||
                                                     nameController.text.isEmpty;
                                             emailValid =
                                                 RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                                        .hasMatch(
-                                                            emailController
-                                                                .text) ||
+                                                    .hasMatch(
+                                                    emailController
+                                                        .text) ||
                                                     emailController
                                                         .text.isEmpty;
                                           });

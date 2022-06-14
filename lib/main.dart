@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ui';
 import 'dart:math';
 import 'package:WEFinder/screens/starter.dart';
 import 'package:flutter/material.dart';
@@ -49,8 +50,9 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
   bool feedbackDone = false;
   bool off = false;
   bool showLoader = false;
+  bool renameError=false;
 
-  var _radius = 200.0;
+  late var _radius;
   double rating1 = 0;
   double rating2 = 0;
   double rating3 = 0;
@@ -75,6 +77,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    _radius = (window.physicalSize.shortestSide / window.devicePixelRatio)/2;
     _sharedStarter();
     super.initState();
     controller = AnimationController(
@@ -535,22 +538,22 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
                                         // (_connectedList.isNotEmpty
                                         //     ? _connectedList.length + 1
                                         //     : 0) +
-                                        //     (_hideConnectedList.isNotEmpty
-                                        //         ? _hideConnectedList.length + 1
-                                        //         : 0) +
+                                            (_hideConnectedList.isNotEmpty
+                                                ? _hideConnectedList.length + 1
+                                                : 0) +
                                         (_scanResultList.isNotEmpty
                                             ? _scanResultList.length + 1
                                             : 0),
                                     itemBuilder:
                                         (BuildContext context, int index) {
-                                      int scanStartIndex = 0;
+                                      int scanStartIndex = 0+
                                       // (_connectedList.isNotEmpty
                                       //     ? _connectedList.length + 1
                                       //     : 0) ;
                                       //     +
-                                      // (_hideConnectedList.isNotEmpty
-                                      //     ? _hideConnectedList.length + 1
-                                      //     : 0);
+                                      (_hideConnectedList.isNotEmpty
+                                          ? _hideConnectedList.length + 1
+                                          : 0);
                                       if (index == scanStartIndex) {
                                         return Container();
                                       } else {
@@ -968,7 +971,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
                                                                                                   width: size.width * 0.6,
                                                                                                   height: 50,
                                                                                                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                                                                                                  decoration: BoxDecoration(color: Colors.white, borderRadius: const BorderRadius.all(Radius.circular(13.0)), border: Border.all(color: AppColors.radarBackgroundInner)),
+                                                                                                  decoration: BoxDecoration(color: Colors.white, borderRadius: const BorderRadius.all(Radius.circular(13.0)), border: Border.all(color: renameError?Colors.red:AppColors.radarBackgroundInner)),
                                                                                                   child: MediaQuery(
                                                                                                     data: MediaQuery.of(context).copyWith(
                                                                                                       textScaleFactor: 1.0,
@@ -1002,11 +1005,24 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
                                                                                             mainAxisAlignment: MainAxisAlignment.center,
                                                                                             children: [
                                                                                               GestureDetector(
-                                                                                                onTap: () {
+                                                                                                onTap:() {
                                                                                                   setState(() {
-                                                                                                    prefs.setString(currentConnected._macAddress.toString(), renameController.text);
-                                                                                                    renameController.clear();
-                                                                                                    Navigator.pop(context);
+                                                                                                    if(renameController.text.isEmpty){
+                                                                                                      renameError=true;
+                                                                                                    }else {
+                                                                                                      prefs
+                                                                                                          .setString(
+                                                                                                          currentConnected
+                                                                                                              ._macAddress
+                                                                                                              .toString(),
+                                                                                                          renameController
+                                                                                                              .text);
+                                                                                                      renameController
+                                                                                                          .clear();
+                                                                                                      Navigator
+                                                                                                          .pop(
+                                                                                                          context);
+                                                                                                    }
                                                                                                   });
                                                                                                 },
                                                                                                 child: Container(
