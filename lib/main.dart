@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
-import 'package:blue/screens/starter.dart';
+import 'package:WEFinder/screens/starter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_blue_elves/flutter_blue_elves.dart';
@@ -98,7 +98,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
 
     controller.forward();
     Timer.periodic(const Duration(milliseconds: 2000), androidGetBlueLack);
-    // getHideConnectedDevice();
+    getHideConnectedDevice();
 
     //Uncover Screen
     circleController =
@@ -160,72 +160,6 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      // if (feedbackDone) {
-      //   showDialog(
-      //       context: context,
-      //       builder: (BuildContext context) => StatefulBuilder(
-      //           builder: (context, setState) => SizedBox(
-      //               height: size.height * 0.1,
-      //               width: size.width * 0.7,
-      //               child: AlertDialog(
-      //                 shape: RoundedRectangleBorder(
-      //                     borderRadius: BorderRadius.circular(20)),
-      //                 insetPadding: const EdgeInsets.all(5),
-      //                 contentPadding: const EdgeInsets.symmetric(horizontal: 5),
-      //                 content: Padding(
-      //                   padding: const EdgeInsets.all(8),
-      //                   child: SizedBox(
-      //                     height: size.height * 0.1,
-      //                     width: size.width * 0.7,
-      //                     child: Column(
-      //                       mainAxisAlignment: MainAxisAlignment.center,
-      //                       crossAxisAlignment: CrossAxisAlignment.center,
-      //                       children: [
-      //                         Image.asset('./assets/thankyou.png',height: 50,),
-      //                         Text(
-      //                           'Thank you for your feedback!',
-      //                           style: GoogleFonts.roboto(
-      //                               fontSize: 14, fontWeight: FontWeight.w400),
-      //                         ),
-      //                       ],
-      //                     ),
-      //                   ),
-      //                 ),
-      //                 actions: [
-      //                   Center(
-      //                     child: GestureDetector(
-      //                       onTap: () {
-      //                         setState(() {
-      //                           Navigator.pop(context);
-      //                         });
-      //                       },
-      //                       child: Container(
-      //                         height: size.width * 0.14,
-      //                         width: size.width * 0.35,
-      //                         margin: const EdgeInsets.symmetric(vertical: 10),
-      //                         decoration: const BoxDecoration(
-      //                             color: AppColors.radarBackgroundOuter,
-      //                             borderRadius:
-      //                                 BorderRadius.all(Radius.circular(10.0))),
-      //                         child: Center(
-      //                           child: Text(
-      //                             "Done",
-      //                             textScaleFactor: 1.0,
-      //                             style: GoogleFonts.roboto(
-      //                               fontSize: 15,
-      //                               color: Colors.black,
-      //                               fontWeight: FontWeight.w500,
-      //                             ),
-      //                           ),
-      //                         ),
-      //                       ),
-      //                     ),
-      //                   ),
-      //                 ],
-      //               ))));
-      // }
-    });
 
     return WillPopScope(
       onWillPop: () async => false,
