@@ -21,8 +21,8 @@ class _StarterState extends State<Starter> with TickerProviderStateMixin {
   void initState() {
     _sharedStarter();
     super.initState();
-  }
-
+  } 
+  
   _sharedStarter() async {
     prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey('email')) {
