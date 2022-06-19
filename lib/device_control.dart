@@ -13,7 +13,7 @@ class DeviceControl extends StatefulWidget {
   final String? _macAddress;
   final String? _name;
   final Device _device;
-
+ 
   const DeviceControl(this._name, this._macAddress, this._device, {Key? key})
       : super(key: key);
 
