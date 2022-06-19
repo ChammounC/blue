@@ -29,7 +29,7 @@ class _DeviceControlState extends State<DeviceControl> {
   final List<_LogItem> _logs = [];
   late int _mtu;
   late StreamSubscription<BleService> _serviceDiscoveryStream;
-  late StreamSubscription<DeviceState> _stateStream;
+  late StreamSubscription<DeviceState> _stateStream; 
   late StreamSubscription<DeviceSignalResult> _deviceSignalResultStream;
 
   _DeviceControlState(this._serviceInfos);
