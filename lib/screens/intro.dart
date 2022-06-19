@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_blue_elves/flutter_blue_elves.dart';
 
 import '../main.dart';
-
+ 
 ///Class to hold data for itembuilder in Intro app.
 class ItemData {
   final Color color;
