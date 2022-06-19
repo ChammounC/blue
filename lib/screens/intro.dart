@@ -23,7 +23,6 @@ class ItemData {
       this.text3);
 }
 
-/// Example of LiquidSwipe with itemBuilder
 class Intro extends StatefulWidget {
   @override
   _Intro createState() => _Intro();
@@ -740,7 +739,7 @@ class _WithPages extends State<WithPages> {
               ),
             )
           ],
-        ),
+        ), 
       ),
     );
   }
