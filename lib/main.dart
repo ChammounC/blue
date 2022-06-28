@@ -20,7 +20,7 @@ import 'package:http/http.dart' as http;
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
-      (value) => runApp( 
+      (value) => runApp(
           MaterialApp(debugShowCheckedModeBanner: false, home: Starter())));
 }
 
