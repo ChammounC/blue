@@ -30,7 +30,7 @@ class MyApp extends StatefulWidget {
   @override
   State<MyApp> createState() => _MyAppState();
 }
- 
+
 class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
   late SharedPreferences prefs;
   TextEditingController renameController = TextEditingController();
