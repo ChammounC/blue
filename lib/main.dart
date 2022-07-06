@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math' as math; 
 import 'constants/colorConstant.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider/carousel_slider.dart'; 
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:http/http.dart' as http;
