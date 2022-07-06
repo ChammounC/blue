@@ -64,7 +64,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
     './assets/banner/banner1.jpg',
     './assets/banner/banner2.jpg',
     './assets/banner/banner3.jpg',
-    './assets/banner/banner4.jpg',
+    './assets/banner/banner4.jpg', 
   ];
 
   final Uri _url = Uri.parse('https://waltaelite.in/shop');
