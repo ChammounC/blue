@@ -20,7 +20,7 @@ class DeviceControl extends StatefulWidget {
   @override
   State<DeviceControl> createState() => _DeviceControlState([]);
 }
-
+ 
 class _DeviceControlState extends State<DeviceControl> {
   final List<_ServiceListItem> _serviceInfos;
   String? renameId;
