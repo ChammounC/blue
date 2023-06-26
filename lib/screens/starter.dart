@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:page_transition/page_transition.dart';
 
-import 'firstTimer.dart';
+import 'registration.dart';
 import 'intro.dart';
 
 class Starter extends StatefulWidget {
@@ -25,13 +25,15 @@ class _StarterState extends State<Starter> with TickerProviderStateMixin {
   
   _sharedStarter() async {
     prefs = await SharedPreferences.getInstance();
+
+    //Already Registered User
     if (prefs.containsKey('email')) {
       controller = AnimationController(
-          vsync: this, duration: Duration(milliseconds: 500));
+          vsync: this, duration: const Duration(milliseconds: 500));
 
       Tween<double> _linearTween = Tween(begin: 0, end: 1000);
 
-      animation = _linearTween.animate(controller)
+       animation = _linearTween.animate(controller)
         ..addListener(() {
           setState(() {});
         })
@@ -41,26 +43,26 @@ class _StarterState extends State<Starter> with TickerProviderStateMixin {
                 context,
                 PageTransition(
                     type: PageTransitionType.fade,
-                    duration: Duration(milliseconds: 1300),
+                    duration: const Duration(milliseconds: 1300),
                     child: Intro()));
           }
         });
-
       controller.forward();
+
     } else {
       Navigator.pushReplacement(
           context,
           PageTransition(
               type: PageTransitionType.fade,
-              duration: Duration(milliseconds: 1300),
-              child: FirstTimer()));
+              duration: const Duration(milliseconds: 1300),
+              child: const Registration()));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF83BCCC),
+      backgroundColor: const Color(0xFF83BCCC),
       body: CustomPaint(
         foregroundPainter: ShapePainter(animation.value),
       ),
@@ -74,7 +76,7 @@ class ShapePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint()
-      ..color = Color(0xFF83BCFF)
+      ..color = const Color(0xFF83BCFF)
       ..strokeWidth = 5
       ..style = PaintingStyle.fill
       ..strokeCap = StrokeCap.round;

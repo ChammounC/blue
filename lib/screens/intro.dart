@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:flutter/cupertino.dart';
+import 'package:FlutterBluetooth/screens/mainPage.dart';
+import 'package:flutter/foundation.dart';
+
 import 'package:page_transition/page_transition.dart';
  
 import 'package:flutter/material.dart';
@@ -8,7 +10,6 @@ import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_blue_elves/flutter_blue_elves.dart';
 
-import '../main.dart';
  
 ///Class to hold data for itembuilder in Intro app.
 class ItemData {
@@ -24,6 +25,8 @@ class ItemData {
 }
 
 class Intro extends StatefulWidget {
+  const Intro({Key? key}) : super(key: key);
+
   @override
   _Intro createState() => _Intro();
 }
@@ -44,12 +47,12 @@ class _Intro extends State<Intro> with TickerProviderStateMixin {
   List<AndroidBluetoothLack> _blueLack = [];
 
   List<ItemData> data = [
-    ItemData(Color(0xFF83BCFF), Colors.white, "./assets/wepods.png",
+    ItemData(const Color(0xFF83BCFF), Colors.white, "./assets/earbuds.png",
         "Let's Get Started", "Find your missing device with this app", ""),
-    ItemData(Color(0xFF007EA7), Colors.white, "./assets/headphone.png",
+    ItemData(const Color(0xFF007EA7), Colors.white, "./assets/headphone.png",
         "Turn on Bluetooth and Location Permission", "Bluetooth", "Location"),
     ItemData(
-        Color(0xFF80CED7),
+        const Color(0xFF80CED7),
         Colors.white,
         "./assets/speakers.png",
         "All Set!",
@@ -57,14 +60,28 @@ class _Intro extends State<Intro> with TickerProviderStateMixin {
         ""),
   ];
 
+  static final style = GoogleFonts.roboto(
+    fontSize: 24,
+    fontWeight: FontWeight.w600,
+  );
+  static final substyle = GoogleFonts.roboto(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    color: Colors.grey[800],
+  );
+  static final substyle1 = GoogleFonts.roboto(
+    fontSize: 22,
+    fontWeight: FontWeight.w600,
+  );
+
   @override
   void initState() {
     liquidController = LiquidController();
     super.initState();
     controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
     circleController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 200));
+        vsync: this, duration: const Duration(milliseconds: 200));
 
     Tween<double> _linearTween = Tween(begin: 5, end: 15);
 
@@ -131,6 +148,7 @@ class _Intro extends State<Intro> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: CustomPaint(
           foregroundPainter: ShapePainter(circleAnimation.value),
@@ -195,7 +213,7 @@ class _Intro extends State<Intro> with TickerProviderStateMixin {
                                 ),
                               ],
                             ),
-                            Padding(
+                            const Padding(
                               padding: EdgeInsets.all(20.0),
                             ),
                           ],
@@ -220,14 +238,14 @@ class _Intro extends State<Intro> with TickerProviderStateMixin {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Padding(
-                                  padding: EdgeInsets.only(
+                                  padding: const EdgeInsets.only(
                                       top: 20.0,
                                       left: 20,
                                       right: 20,
                                       bottom: 10),
                                   child: Text(
                                     data[index].text1,
-                                    style: WithPages.style,
+                                    style: substyle,
                                   ),
                                 ),
                                 Padding(
@@ -235,13 +253,13 @@ class _Intro extends State<Intro> with TickerProviderStateMixin {
                                       horizontal: 20.0),
                                   child: index == 1
                                       ? Container(
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                               horizontal: 10),
                                           decoration: BoxDecoration(
                                             border: Border.all(
                                                 color: Colors.grey[300]!,
                                                 width: 1.5),
-                                            borderRadius: BorderRadius.all(
+                                            borderRadius: const BorderRadius.all(
                                                 Radius.circular(8)),
                                           ),
                                           child: Row(
@@ -250,7 +268,7 @@ class _Intro extends State<Intro> with TickerProviderStateMixin {
                                             children: [
                                               Text(
                                                 data[index].text2,
-                                                style: WithPages.substyle,
+                                                style: substyle,
                                               ),
                                               Switch(
                                                   value: _blueLack.contains(
@@ -265,9 +283,11 @@ class _Intro extends State<Intro> with TickerProviderStateMixin {
                                                       FlutterBlueElves.instance
                                                           .androidOpenBluetoothService(
                                                               (isOk) {
-                                                        print(isOk
+                                                        if (kDebugMode) {
+                                                          print(isOk
                                                             ? "User agrees to grant location permission"
                                                             : "User does not agree to grant location permission");
+                                                        }
                                                       });
                                                     }
                                                   }),
@@ -276,7 +296,7 @@ class _Intro extends State<Intro> with TickerProviderStateMixin {
                                         )
                                       : Text(
                                           data[index].text2,
-                                          style: WithPages.substyle,
+                                          style: substyle,
                                         ),
                                 ),
                                 index == 0
@@ -294,7 +314,7 @@ class _Intro extends State<Intro> with TickerProviderStateMixin {
                                             decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(50),
-                                                color: Color(0xFF83BCFF)),
+                                                color: const Color(0xFF83BCFF)),
                                             child: Center(
                                                 child: Row(
                                               mainAxisAlignment:
@@ -322,7 +342,7 @@ class _Intro extends State<Intro> with TickerProviderStateMixin {
                                             child: index == 1
                                                 ? Container(
                                                     padding:
-                                                        EdgeInsets.symmetric(
+                                                        const EdgeInsets.symmetric(
                                                             horizontal: 10),
                                                     decoration: BoxDecoration(
                                                       border: Border.all(
@@ -330,7 +350,7 @@ class _Intro extends State<Intro> with TickerProviderStateMixin {
                                                               Colors.grey[300]!,
                                                           width: 1.5),
                                                       borderRadius:
-                                                          BorderRadius.all(
+                                                          const BorderRadius.all(
                                                               Radius.circular(
                                                                   8)),
                                                     ),
@@ -341,8 +361,7 @@ class _Intro extends State<Intro> with TickerProviderStateMixin {
                                                       children: [
                                                         Text(
                                                           data[index].text3,
-                                                          style: WithPages
-                                                              .substyle,
+                                                          style:substyle,
                                                         ),
                                                         Switch(
                                                             value: (_blueLack.contains(
@@ -360,9 +379,11 @@ class _Intro extends State<Intro> with TickerProviderStateMixin {
                                                                     .instance
                                                                     .androidOpenLocationService(
                                                                         (isOk) {
-                                                                  print(isOk
+                                                                  if (kDebugMode) {
+                                                                    print(isOk
                                                                       ? "User agrees to grant location permission"
                                                                       : "User does not agree to grant location permission");
+                                                                  }
                                                                 });
                                                               }
                                                             }),
@@ -371,7 +392,7 @@ class _Intro extends State<Intro> with TickerProviderStateMixin {
                                                   )
                                                 : Text(
                                                     data[index].text3,
-                                                    style: WithPages.substyle,
+                                                    style: substyle,
                                                   ),
                                           ),
                                 index==1?Center(child: Text('( Settings > Location > App Permissions )',style: GoogleFonts.roboto(fontSize:15,fontWeight: FontWeight.w500),)):Container(),
@@ -386,7 +407,7 @@ class _Intro extends State<Intro> with TickerProviderStateMixin {
                                               circleController =
                                                   AnimationController(
                                                       vsync: this,
-                                                      duration: Duration(
+                                                      duration: const Duration(
                                                           milliseconds:500));
                                               Tween<double> _circleTween =
                                                   Tween(
@@ -406,7 +427,7 @@ class _Intro extends State<Intro> with TickerProviderStateMixin {
                                                           .completed) {
                                                     Navigator.pushReplacement(
                                                         context,
-                                                        PageTransition(type:PageTransitionType.fade,duration: Duration(milliseconds: 1000),child: MyApp()));
+                                                        PageTransition(type:PageTransitionType.fade,duration: const Duration(milliseconds: 1000),child: const MainPage()));
                                                   }
                                                 });
                                               circleController.forward();
@@ -425,7 +446,7 @@ class _Intro extends State<Intro> with TickerProviderStateMixin {
                                               decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(20),
-                                                  color: Color(0xFF80CED7)),
+                                                  color: const Color(0xFF80CED7)),
                                               child: const Center(
                                                   child: Text(
                                                 'Search Bluetooth Devices',
@@ -439,9 +460,9 @@ class _Intro extends State<Intro> with TickerProviderStateMixin {
                                           ),
                                         ),
                                       )
-                                    : Text(""),
+                                    : const Text(""),
                                 index == 1
-                                    ? SizedBox(
+                                    ? const SizedBox(
                                         height: 10,
                                       )
                                     : Container(),
@@ -464,10 +485,10 @@ class _Intro extends State<Intro> with TickerProviderStateMixin {
                 ignoreUserGestureWhileAnimating: true,
               ),
               Padding(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: Column(
                   children: <Widget>[
-                    Expanded(child: SizedBox()),
+                    const Expanded(child: SizedBox()),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List<Widget>.generate(data.length, _buildDot),
@@ -475,36 +496,6 @@ class _Intro extends State<Intro> with TickerProviderStateMixin {
                   ],
                 ),
               ),
-              // Align(
-              //   alignment: Alignment.bottomRight,
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(25.0),
-              //     child: FlatButton(
-              //       onPressed: () {
-              //         liquidController.animateToPage(
-              //             page: data.length - 1, duration: 700);
-              //       },
-              //       child: Text("Skip to End"),
-              //       color: Colors.white.withOpacity(0.01),
-              //     ),
-              //   ),
-              // ),
-              // Align(
-              //   alignment: Alignment.bottomLeft,
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(25.0),
-              //     child: FlatButton(
-              //       onPressed: () {
-              //         liquidController.jumpToPage(
-              //             page: liquidController.currentPage + 1 > data.length - 1
-              //                 ? 0
-              //                 : liquidController.currentPage + 1);
-              //       },
-              //       child: Text("Next"),
-              //       color: Colors.white.withOpacity(0.01),
-              //     ),
-              //   ),
-              // )
             ],
           ),
         ),
@@ -524,240 +515,13 @@ class _Intro extends State<Intro> with TickerProviderStateMixin {
   }
 }
 
-///Example of App with LiquidSwipe by providing list of widgets
-class WithPages extends StatefulWidget {
-  static final style = GoogleFonts.roboto(
-    fontSize: 24,
-    fontWeight: FontWeight.w600,
-  );
-  static final substyle = GoogleFonts.roboto(
-    fontSize: 18,
-    fontWeight: FontWeight.w600,
-    color: Colors.grey[800],
-  );
-  static final substyle1 = GoogleFonts.roboto(
-    fontSize: 22,
-    fontWeight: FontWeight.w600,
-  );
-
-  @override
-  _WithPages createState() => _WithPages();
-}
-
-class _WithPages extends State<WithPages> {
-  int page = 0;
-  late LiquidController liquidController;
-  late UpdateType updateType;
-
-  @override
-  void initState() {
-    liquidController = LiquidController();
-    super.initState();
-  }
-
-  final pages = [
-    Container(
-      color: Colors.pink,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Image.asset(
-            './assets/wepods.png',
-            fit: BoxFit.cover,
-          ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 20.0),
-          ),
-          Column(
-            children: <Widget>[
-              Text(
-                "",
-                style: WithPages.style,
-              ),
-              Text(
-                "It's Me",
-                style: WithPages.style,
-              ),
-              Text(
-                "Sahdeep",
-                style: WithPages.style,
-              ),
-            ],
-          ),
-        ],
-      ),
-    ),
-    Container(
-      color: Colors.deepPurpleAccent,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Image.asset(
-            './assets/.png',
-            fit: BoxFit.cover,
-          ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 20.0),
-          ),
-          Column(
-            children: <Widget>[
-              Text(
-                "Take a",
-                style: WithPages.style,
-              ),
-              Text(
-                "look at",
-                style: WithPages.style,
-              ),
-              Text(
-                "Liquid Swipe",
-                style: WithPages.style,
-              ),
-            ],
-          ),
-        ],
-      ),
-    ),
-    Container(
-      color: Colors.greenAccent,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Image.asset(
-            './assets/speakers.png',
-            fit: BoxFit.cover,
-          ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 20.0),
-          ),
-          Column(
-            children: <Widget>[
-              Text(
-                "Liked?",
-                style: WithPages.style,
-              ),
-              Text(
-                "Fork!",
-                style: WithPages.style,
-              ),
-              Text(
-                "Give Star!",
-                style: WithPages.style,
-              ),
-            ],
-          ),
-        ],
-      ),
-    ),
-  ];
-
-  Widget _buildDot(int index) {
-    double selectedness = Curves.easeOut.transform(
-      max(
-        0.0,
-        1.0 - ((page) - index).abs(),
-      ),
-    );
-    double zoom = 1.0 + (2.0 - 1.0) * selectedness;
-    return SizedBox(
-      width: 25.0,
-      child: Center(
-        child: Material(
-          color: Colors.white,
-          type: MaterialType.circle,
-          child: SizedBox(
-            width: 8.0 * zoom,
-            height: 8.0 * zoom,
-          ),
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Stack(
-          children: <Widget>[
-            LiquidSwipe(
-              pages: pages,
-              slideIconWidget: Icon(Icons.arrow_back_ios),
-              onPageChangeCallback: pageChangeCallback,
-              waveType: WaveType.liquidReveal,
-              liquidController: liquidController,
-              enableSideReveal: true,
-              ignoreUserGestureWhileAnimating: true,
-            ),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                children: <Widget>[
-                  const Expanded(child: SizedBox()),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List<Widget>.generate(pages.length, _buildDot),
-                  ),
-                ],
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Padding(
-                padding: const EdgeInsets.all(25.0),
-                child: FlatButton(
-                  onPressed: () {
-                    liquidController.animateToPage(
-                        page: pages.length - 1, duration: 700);
-                  },
-                  child: Text("Skip to End"),
-                  color: Colors.white.withOpacity(0.01),
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Padding(
-                padding: const EdgeInsets.all(25.0),
-                child: FlatButton(
-                  onPressed: () {
-                    liquidController.jumpToPage(
-                        page:
-                            liquidController.currentPage + 1 > pages.length - 1
-                                ? 0
-                                : liquidController.currentPage + 1);
-                  },
-                  child: Text("Next"),
-                  color: Colors.white.withOpacity(0.01),
-                ),
-              ),
-            )
-          ],
-        ), 
-      ),
-    );
-  }
-
-  pageChangeCallback(int lpage) {
-    setState(() {
-      page = lpage;
-    });
-  }
-}
-
 class ShapePainter extends CustomPainter {
   final double radius;
   ShapePainter(this.radius);
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint()
-      ..color = Color(0xFF80CED7)
+      ..color = const Color(0xFF80CED7)
       ..strokeWidth = 5
       ..style = PaintingStyle.fill
       ..strokeCap = StrokeCap.round;
